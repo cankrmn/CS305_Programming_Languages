@@ -1,0 +1,77 @@
+	int Line = 1;
+	#include <stdio.h>
+
+%%
+\n 	Line++;
+
+["]Get["]	printf("%d tGET\n", Line);
+["]Set["]	printf("%d tSET\n", Line);
+["]Function["]	printf("%d tFUNCTION\n", Line);
+["]Print["] 	printf("%d tPRINT\n", Line);
+["]For["]	printf("%d tFOR\n", Line);
+["]If["]	printf("%d tIF\n", Line);
+["]Return["]	printf("%d tRETURN\n", Line);
+
+"["		printf("%d tLBRAC\n", Line);
+"]"		printf("%d tRBRAC\n", Line);
+","		printf("%d tCOMMA\n", Line);
+["]"+"["]		printf("%d tPLUS\n", Line);
+["]"*"["]		printf("%d tMUL\n", Line);
+["]"++"["]	printf("%d tINC\n", Line);
+["]">"["]		printf("%d tGT\n", Line);
+["]">="["]	printf("%d tGEQ\n", Line);
+["]"=="["]	printf("%d tEQUALITY\n", Line);
+["]"-"["]		printf("%d tMINUS\n", Line);
+["]"/"["]		printf("%d tDIV\n", Line);
+["]"--"["]	printf("%d tDEC\n", Line);
+["]"<"["]		printf("%d tLT\n", Line);
+["]"<="["]	printf("%d tLEQ\n", Line);
+
+
+
+'[^'\n]*'		{ yytext[0] = '('; yytext[yyleng - 1] = ')';
+		 	  printf("%d tSTRING %s\n", Line, yytext); }
+
+'[^']*'			{ yytext[0] = '('; yytext[yyleng - 1] = ')';
+		 	  printf("%d tSTRING %s\n", Line, yytext);
+			  int i = 1;
+			  for(; i < yyleng - 1; i++) if(yytext[i] == '\n') Line++; }  
+
+
+
+["][_a-zA-Z][_a-zA-Z0-9]*["]	{ yytext[0] = '('; yytext[yyleng - 1] = ')';
+				  printf("%d tIDENT %s\n", Line, yytext); }
+
+-?[0-9]+[.][0-9]+	{ printf("%d tNUM (%s) (", Line, yytext);
+
+			  int isNonzero = 0; int i = yyleng - 1; int j = 0;
+			  while(yytext[i] == '0' && yytext[i] != '.') i--; 
+			  if(yytext[0] == '-') printf("-");
+			  else if(yytext[0] != '0') isNonzero = 1;
+			  while(isNonzero == 0) { j++; if(yytext[j] != '0') isNonzero = 1; 
+                                                  if(yytext[j] == '.') printf("0"); }
+			  for(; j <= i; j++) printf("%c", yytext[j]);
+			  if(yytext[i] == '.') printf("0");
+			  printf(")\n"); }
+
+-?[0-9]+		{ printf("%d tNUM (%s) (", Line, yytext);
+			  int isNonzero = 0; int i = 0;
+			  if(yytext[0] == '-') printf("-");
+			  else if(yytext[0] != '0') isNonzero = 1;
+		          while(isNonzero == 0) { i++; if(yytext[i] != '0') isNonzero = 1; }
+			  if(i == yyleng) i--;
+			  for(; i < yyleng; i++) printf("%c", yytext[i]);
+			  printf(")\n"); }
+
+.
+
+
+
+%%
+
+int main()
+{
+	yylex();
+	return (0);
+}
+

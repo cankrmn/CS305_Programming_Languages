@@ -1,0 +1,13 @@
+[
+    ["Set", "main",
+        ["Function", ["date", "birthdate"],
+            ["Set", "curYear", 2021],
+            ["Set", "curMonth", 'February'],
+            ["Print",
+                ["-",
+                ["Get", "date"], ["Get", "birthdate"]
+                ]
+            ]
+        ]
+    ] 
+]

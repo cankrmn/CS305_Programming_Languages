@@ -1,0 +1,8 @@
+1 tSTRING ()
+2 tSTRING ()
+3 tSTRING ()
+3 tSTRING ()
+4 tSTRING (HelloWorld)
+5 tSTRING ("HELLO")
+6 tSTRING (\n)
+8 tNUM (123) (123)

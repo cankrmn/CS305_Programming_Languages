@@ -1,0 +1,103 @@
+[
+	
+    ["Print", ['This is a function to print hello world on screen!']]
+    
+    ["Set", "PrintHelloWorld", 
+        ["Function", [],
+         [
+            ["Print", ['Hello World'] ]
+         ]
+        ]
+    ]  
+
+    ["Print", ['This is a function to add X and Y taken as parameters and 
+              returns it.'] ]
+    
+    ["Set", "SumFunc",
+        ["Function", ["X","Y"],
+          [
+            ["Set", "Z", ["+" , ["Get", "X"], ["Get", "Y"]]]
+
+            ["Return", ["Get", "Z"]]
+          ]
+        ]
+    ]
+
+    
+    ["Print", ['Define a new Variable and name it which_function_to_call.']]
+    
+    ["Set", "which_function_to_call", 1]
+    
+    ["Print", ['If the which_function_to_call variable is 1 then call PrintHelloWorld otherwise call the function sumFunc.'] ]
+    
+    ["If", 
+        ["==",["Get","which_function_to_call"],1],
+        [
+            ["Print", ['Condition holds']]
+            ["Get", "PrintHelloWorld", []]
+        ]
+        [
+            ["Print", ['Condition does not hold']]
+            ["Get", "SumFunc", [1,2]]
+        ]
+    ]
+    
+    ["Print", ['Define a new variable OnePlusTwo and set it to return value of SumFunc 
+    when called with 1 and 2.']]
+    
+    ["Set", "OnePlusTwo", ["Get", "SumFunc", [1,2]]]
+
+    [">", 'Hello', 2]	
+    
+    ["++", "HelloWorld"]
+    
+    ["--", "which_function_to_call"]
+    
+    ["Set", "X", ["Get","PrintHelloWorld",[] ] ]
+    
+    ["Get", "SumFunc", [1,2,3,4,5] ] 
+    
+    ["Get", "which_function_to_call", [1,2]]
+    
+    ["Get", "PrintHelloWorld"]
+
+    ["Set","X", 1]
+
+    ["Set","X", 'Test']
+
+    ["Set","X", ["Function", [], []] ]
+
+    ["If", [">", 1, 0], 
+        [
+            ["Set", "X", 'bigger']
+        ]
+        [
+            ["Set", "X", 'smaller']
+        ]
+    ]
+
+    ["If", [">", 1, 0], 
+        [
+            ["Get", "callFunc", []]
+        ]
+    ]
+
+    [ "Function", ["X", "Y"], 
+      [
+        [ "Print", ['Start of the function.']]
+        [ "If", [">", ["Get", "X"], ["Get", "Y"]],
+          [
+            [ "Print", ['X is greater than Y'] ]
+          ]
+          [
+            [ "Print", ['X is NOT greater than Y'] ]
+          ]
+        ] 
+        ["Print", ['End of the function.']]
+      ]
+    ]
+
+    [ "Function", [], []]
+
+    [ "Function", [], [ ["Print", ['Hello World']]]]
+]
